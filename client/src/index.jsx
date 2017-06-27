@@ -9,13 +9,23 @@ class App extends React.Component {
     super(props);
     this.state = { 
       repos: []
-    }
+    };
 
   }
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    $.ajax({
+      url: '/repos/import',
+      method: 'POST',
+      data: {username: term},
+      success: (data) => {
+        console.log('post successful!', data);        
+      },
+      error: (error) => {
+        console.error('post failed!');
+      }
+    });
   }
 
   render () {
@@ -23,7 +33,7 @@ class App extends React.Component {
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
-    </div>)
+    </div>);
   }
 }
 
