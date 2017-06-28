@@ -27,10 +27,14 @@ app.post('/repos/import', function (req, res) {
     } else {
       // resolve(response);
       var data = JSON.parse(body);
-      console.log('data', data);
+      // console.log('data', data);
+      data.forEach(function(thisRepo) {
+        new repo(thisRepo).save();
+      });
     }
 
-    res.send('doneee');
+    // res.send('doneee');
+    res.sendStatus(201);    
   });
 });
 
