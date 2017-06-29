@@ -39,7 +39,11 @@ app.post('/repos/import', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // TODO
+  var query = req.query.data;
+  console.log('the query', query);
+  repo.find({}).sort({ [query] : -1 }).limit(25).exec((err, results) => {
+    res.json(results);
+  });
 });
 
 var port = 1128;
