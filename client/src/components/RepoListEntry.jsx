@@ -1,8 +1,8 @@
 import React from 'react';
 
-const RepoList = (props) => (
+const RepoListEntry = (props) => (
   <div>
-    hi
+    <a href={props.repo.html_url} target="_blank"> {props.repo.name} </a>
   </div>
 );
 

@@ -13,6 +13,10 @@ class App extends React.Component {
 
   }
 
+  componentDidMount () {
+    this.retrieve();
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     $.ajax({
@@ -20,10 +24,31 @@ class App extends React.Component {
       method: 'POST',
       data: {username: term},
       success: (data) => {
-        console.log('post successful!', data);        
+        console.log('post successful!', data);  
+        this.retrieve();      
       },
       error: (error) => {
         console.error('post failed!');
+      }
+    });
+  }
+
+  retrieve () {
+    $.ajax({
+      url: '/repos',
+      method: 'GET',
+      data: {
+        repos: ''
+      },
+      contentType: 'application/json',
+      success: (data) => {
+        console.log(data);
+        this.setState({
+          repos: data
+        });
+      },
+      error: (error) => {
+        console.error('there was an error in retrieving data!', error);
       }
     });
   }
